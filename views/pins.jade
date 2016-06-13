@@ -1,0 +1,30 @@
+each pin in pins
+  article.card
+    header
+      img(src=pin.user.avatar)
+      small
+        span &nbsp;
+        strong= pin.user.name
+      span &nbsp;
+      a.icon-link(href='/pin/' + pin.id)
+    body!= pin.message
+    footer
+      .flex.three
+        .votes
+          small
+            span= pin.votes + ' Votes | '
+            if loggedIn
+              if pin.hasVoted
+                a(href='/pin/' + pin.id + '/delete') UnVote
+              else
+                a(href='/pin/' + pin.id + '/vote') Vote
+            else
+              a(href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=" + clientId) Vote
+        .comments
+          //- small
+          //-   a(href='#') Comment
+        .general
+          small
+            a(href='/channel/' + pin.channel)= '#' + pin.channel
+            span= ' | ' + pin.ts + ' | ' 
+            a(href=pin.permalink, target='_blank') permalink

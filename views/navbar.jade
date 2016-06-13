@@ -1,0 +1,17 @@
+nav.navbar
+  a.brand(href='/') &lt;Cool Name&gt;
+  
+  input(id="bmenub" type="checkbox" class="show")
+  label(for="bmenub" class="burger pseudo button") &#8801;
+  
+  .menu
+    a.button.icon-up-circled(href='/topvoted') Top Voted
+    a.button.icon-shuffle(href='/random') Random
+    .pseudo.button
+      input#channel.typeahead(type="text", placeholder='Slack Channel')
+    if loggedIn
+      button.pseudo(href='#')
+        img(src=user.avatar)
+        span= ' @' + user.name
+    else
+      a.button.icon-slack(href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=" + clientId) Sign in

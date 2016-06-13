@@ -1,0 +1,27 @@
+{
+  "name": "slack_pinned",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "app-root-path": "^1.0.0",
+    "body-parser": "~1.13.2",
+    "camo": "^0.12.1",
+    "cookie-parser": "~1.3.5",
+    "cron": "^1.1.0",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "html-entities": "^1.2.0",
+    "jade": "~1.11.0",
+    "lodash": "^4.13.1",
+    "moment": "^2.13.0",
+    "morgan": "~1.6.1",
+    "nedb": "^1.8.0",
+    "request-promise": "^3.0.0",
+    "serve-favicon": "~2.3.0",
+    "showdown": "^1.4.1",
+    "slack": "^7.2.0"
+  }
+}
