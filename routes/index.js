@@ -186,9 +186,9 @@ router.get('/topvoted', slackCookieParser, (req, res, next) => {
 
 function compare(a,b) {
   if (a.votes.length < b.votes.length)
-    return -1;
-  else if (a.votes.length > b.votes.length)
     return 1;
+  else if (a.votes.length > b.votes.length)
+    return -1;
   else
     return 0;
 }
