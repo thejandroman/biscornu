@@ -1,0 +1,34 @@
+each pin in pins
+  .panel.panel-default
+    .panel-heading
+      img(src=pin.user.avatar)
+      small
+        span &nbsp;
+        strong= pin.user.name
+      span &nbsp;
+      a.icon-link(href='/pin/' + pin.id)
+    .panel-body
+      span!= pin.message
+    .panel-footer
+      .row
+        .col-sm-4
+          .votes
+            small
+              span= pin.votes + ' Votes | '
+              if loggedIn
+                if pin.hasVoted
+                  a(href='/pin/' + pin.id + '/delete') UnVote
+                else
+                  a(href='/pin/' + pin.id + '/vote') Vote
+              else
+                a(href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=" + clientId) Vote
+        .col-sm-4
+          .comments
+            //- small
+            //-   a(href='#') Comment
+        .col-sm-4
+          .general
+            small
+              a(href='/channel/' + pin.channel)= '#' + pin.channel
+              span= ' | ' + pin.ts + ' | ' 
+              a(href=pin.permalink, target='_blank') permalink
