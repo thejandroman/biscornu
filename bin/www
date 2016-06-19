@@ -5,7 +5,7 @@
  */
 
 var app    = require('../app');
-var debug  = require('debug')('slack_pinned:server');
+var debug  = require('debug')('biscornu:server');
 var http   = require('http');
 var config = require('../config');
 var jobs   = require('../jobs');

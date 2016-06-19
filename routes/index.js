@@ -13,7 +13,8 @@ var config       = require('../config'),
     apiUrl       = 'http://localhost:' + config.port,
     dbUri        = config.dbUri,
     clientId     = config.clientId,
-    clientSecret = config.clientSecret;
+    clientSecret = config.clientSecret,
+    theme        = config.theme + '/';
 
 // DB connection
 var connect = require('camo').connect,
@@ -97,14 +98,14 @@ var slackCookieParser = function(req, res, next) {
 };
 
 router.get('/', slackCookieParser, (req, res, next) => {
-  res.render('index', _.merge({ title: 'All pins'}, req.slackExtra));
+  res.render(theme + 'index', _.merge({ title: 'All pins'}, req.slackExtra));
 });
 
 router.get('/pins', slackCookieParser, (req, res, next) => {
   User.find().then((users) => {
     Channel.find().then((channels) => {
       Pin.find({}, {sort: '-ts'}).then((pins) => {
-        res.render('pins', _.merge({ pins: pinParser(pins, users, channels, req.slackExtra.user.sId) }, req.slackExtra));
+        res.render(theme + 'pins', _.merge({ pins: pinParser(pins, users, channels, req.slackExtra.user.sId) }, req.slackExtra));
       });
     });
   });
@@ -119,7 +120,7 @@ router.get('/channels/:channelFrag', (req, res, next) => {
 });
 
 router.get('/channel/:channel', slackCookieParser, (req, res, next) => {
-  res.render('channel', _.merge({ title: req.params.channel }, req.slackExtra));
+  res.render(theme + 'channel', _.merge({ title: req.params.channel }, req.slackExtra));
 });
 
 router.get('/pins/:channel', slackCookieParser, (req, res, next) => {
@@ -127,7 +128,7 @@ router.get('/pins/:channel', slackCookieParser, (req, res, next) => {
   User.find().then((users) => {
     Channel.findOne({name: channelName}).then((channel) => {
       Pin.find({channelId: channel.sId}, {sort: '-ts'}).then((pins) => {
-        res.render('pins', _.merge({ pins: pinParser(pins, users, [channel], req.slackExtra.user.sId) }, req.slackExtra));
+        res.render(theme + 'pins', _.merge({ pins: pinParser(pins, users, [channel], req.slackExtra.user.sId) }, req.slackExtra));
       });
     });
   });
@@ -138,7 +139,7 @@ router.get('/pin/:pinId', slackCookieParser, (req, res, next) => {
   User.find().then((users) => {
     Channel.find().then((channels) => {
       Pin.findOne({sId: pinId}).then((pin) => {
-        res.render('pin', _.merge({ pin: pinParser([pin], users, channels, req.slackExtra.user.sId)[0] }, req.slackExtra));
+        res.render(theme + 'pin', _.merge({ pin: pinParser([pin], users, channels, req.slackExtra.user.sId)[0] }, req.slackExtra));
       });
     });
   });
@@ -177,11 +178,11 @@ router.get('/pin/:pinId/delete', slackCookieParser, (req, res, next) => {
 });
 
 router.get('/random', slackCookieParser, (req, res, next) => {
-  res.render('random', _.merge({ title: 'Random Pin' }, req.slackExtra));
+  res.render(theme + 'random', _.merge({ title: 'Random Pin' }, req.slackExtra));
 });
 
 router.get('/topvoted', slackCookieParser, (req, res, next) => {
-  res.render('topvoted', _.merge({ title: 'Top Voted' }, req.slackExtra));
+  res.render(theme + 'topvoted', _.merge({ title: 'Top Voted' }, req.slackExtra));
 });
 
 function compare(a,b) {
@@ -198,7 +199,7 @@ router.get('/top-pins', slackCookieParser, (req, res, next) => {
     Channel.find().then((channels) => {
       Pin.find().then((pins) => {
         var votedPins = _.filter(pins, (o) => { return o.votes.length > 0; });
-        res.render('pins', _.merge({ pins: pinParser(votedPins.sort(compare), users, channels, req.slackExtra.user.sId) }, req.slackExtra));
+        res.render(theme + 'pins', _.merge({ pins: pinParser(votedPins.sort(compare), users, channels, req.slackExtra.user.sId) }, req.slackExtra));
       });
     });
   });
@@ -220,7 +221,7 @@ router.get('/random-pin', slackCookieParser, (req, res, next) => {
     Channel.find().then((channels) => {
       Pin.find().then((pins) => {
         var pin = pins[_.random(0, pins.length)];
-        res.render('pins', _.merge({ pins: pinParser([pin], users, channels, req.slackExtra.user.sId) }, req.slackExtra));
+        res.render(theme + 'pins', _.merge({ pins: pinParser([pin], users, channels, req.slackExtra.user.sId) }, req.slackExtra));
       });
     });
   });

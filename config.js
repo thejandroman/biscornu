@@ -5,7 +5,8 @@ var port         = process.env.PORT || '3000',
     slackToken   = process.env.SLACKTOKEN || 'changeMe',
     dbUri        = process.env.DBURI || 'nedb://' + appRoot + '/slack.db',
     clientId     = process.env.CLIENTID || 'changeMe',
-    clientSecret = process.env.CLIENTSECRET || 'changeMe';
+    clientSecret = process.env.CLIENTSECRET || 'changeMe',
+    theme        = 'picnic';
 
 // Do not change below this line
 function normalizePort(val) {
@@ -20,7 +21,8 @@ var config = {
   port         : normalizePort(port),
   dbUri        : dbUri,
   clientId     : clientId,
-  clientSecret : clientSecret
+  clientSecret : clientSecret,
+  theme        : theme
 };
 
 module.exports = config;
