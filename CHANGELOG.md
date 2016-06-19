@@ -9,3 +9,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Renamed app Biscornu
+
+### Fixed
+- /random/json now works as expected
+
+## [0.1.0] - 2016/06/12
+### Added
+- Initial release
