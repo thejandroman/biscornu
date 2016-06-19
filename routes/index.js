@@ -205,7 +205,7 @@ router.get('/top-pins', slackCookieParser, (req, res, next) => {
   });
 });
 
-router.get('/random/json', (req, res, next) => {
+router.get('/random/json', slackCookieParser, (req, res, next) => {
   User.find().then((users) => {
     Channel.find().then((channels) => {
       Pin.find().then((pins) => {
