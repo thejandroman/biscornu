@@ -21,10 +21,10 @@ nav.navbar.navbar-default
           a.icon-up-circled(href='/topvoted') Top Voted
         li
           a.icon-shuffle(href='/random') Random
-        if loggedIn
-          li
+        li
+          if loggedIn
             a(href='#')
               img(src=user.avatar)
               span= ' @' + user.name
-        else
-          a.icon-slack(href='https://slack.com/oauth/authorize?scope=identity.basic&client_id=' + clientId) Sign in
+          else
+            a.icon-slack(href='https://slack.com/oauth/authorize?scope=identity.basic&client_id=' + clientId) Sign in
