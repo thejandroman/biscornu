@@ -56,7 +56,7 @@ function getPins() {
   Channel.find().then((channels) => {
     _.forEach(channels, (channel) => {
       slack.pins.list({token, channel: channel.sId}, (err, data) => {
-        if (data.items.length === 0) return;
+        if (data.items == null || data.items.length === 0) return;
         _.forEach(data.items, (p) => {
           if (p.message == null) return;
           if (p.message.user == null) return;
