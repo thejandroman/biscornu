@@ -134,6 +134,21 @@ router.get('/pins/:channel', slackCookieParser, (req, res, next) => {
   });
 });
 
+router.get('/user/:user', slackCookieParser, (req, res, next) => {
+  res.render(theme + 'user', _.merge({ title: req.params.user }, req.slackExtra));
+});
+
+router.get('/pins/user/:user', slackCookieParser, (req, res, next) => {
+  var userName = req.params.user;
+  Channel.find().then((channels) => {
+    User.findOne({name: userName}).then((user) => {
+      Pin.find({userId: user.sId}, {sort: '-ts'}).then((pins) => {
+        res.render(theme + 'pins', _.merge({ pins: pinParser(pins, [user], channels, req.slackExtra.user.sId) }, req.slackExtra));
+      });
+    });
+  });
+});
+
 router.get('/pin/:pinId', slackCookieParser, (req, res, next) => {
   var pinId = req.params.pinId;
   User.find().then((users) => {
