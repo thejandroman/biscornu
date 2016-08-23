@@ -74,7 +74,17 @@ function getPins() {
               });
 
           Pin.count({sId: id}).then((count) => {
-            if (count === 0) pin.save();
+            if (count === 0) {
+              pin.save();
+            } else {
+              Pin.findOne({sId: id}).then((oPin) => {
+                _.forEach(Object.keys(pin), (key) => {
+                  if (key.startsWith('_')) return;
+                  oPin[key] = pin[key];
+                });
+                oPin.save();
+              });
+            }
           });
         });
       });
