@@ -58,3 +58,13 @@ if ( $( '#pins' ).length ) {
     $('#pins').html('Serious error');
   });
 }
+
+if ( $( '#user-pins' ).length ) {
+  var user = $('#user-pins').attr('user');
+  $.get('/pins/user/' + user, (data) => {
+    $('#user-pins').html(data);
+  })
+    .fail(() => {
+      $('#user-pins').html('Serious error');
+    });
+}
