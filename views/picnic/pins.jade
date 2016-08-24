@@ -4,7 +4,8 @@ each pin in pins
       img(src=pin.user.avatar)
       small
         span &nbsp;
-        strong= pin.user.name
+        a(href='/user/' + pin.user.name)
+          strong= pin.user.name
       span &nbsp;
       a.icon-link(href='/pin/' + pin.id)
     body!= pin.message
